@@ -24,7 +24,7 @@ CREATE TABLE `Location` (
 
 DROP TABLE IF EXISTS LineupMembers;
 CREATE TABLE `LineupMembers` (
-    `concertID` int(11) NOT NULL,
+    `concertID` int(11) NOT NULL AUTO_INCREMENT,
     `memberName` varchar(255) NOT NULL,
     PRIMARY KEY (`concertID`)
 ) ENGINE=InnoDB;
@@ -51,8 +51,8 @@ CREATE TABLE `Track`(
 INSERT INTO `Location` (venueName, country) VALUES ('Radio Bremen', 'Germany');
 
 -- create row for concert 1 lineup
-INSERT INTO LineupMembers (`memberName`) VALUES ('Klaus Dinger'), ('Florian Schneider'), ( 'Michael Rother');
-
+INSERT INTO `LineupMembers` (`memberName`) VALUES ('Klaus Dinger'), ('Florian Schneider'), ( 'Michael Rother');
+/*
 -- create tracks played at concert 1
 INSERT INTO Track (`name`, release) VALUES ('Heavy Metal Kids', 'unreleased'), ('Stratovarius', 'Kraftwerk 1'), ('Ruckzuck', 'Kraftwerk 1'), ('Vom Himmel Hoch', 'Kraftwerk 1'), ('Rueckstoss Gondliere', 'unreleased');
 
@@ -76,7 +76,7 @@ INSERT INTO Concert (date, location, lineup, tour, tracklist, media, notes) VALU
  );
 
 /*--------------------------------------------------------------*/
-
+/*
 -- create row for concert2 location
 INSERT INTO Location (venueName, country) VALUES ('Nakano Sun Plaza', 'Tokyo, Japan');
 
@@ -121,4 +121,4 @@ INSERT INTO Concert (date, location, lineup, tour, tracklist, media, notes) VALU
     'https://www.youtube.com/watch?v=J0vfwuSVDgw',
     'Concert from the 1981 Computer World tour in which Kraftwerk disassembled their studio to bring with them on tour. The song Its More Fun To Compute is an alternative live version'
  );
-
+*/
