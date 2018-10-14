@@ -57,8 +57,9 @@ CREATE TABLE `Tracklist` (
 )ENGINE=InnoDB;
 
 -- add row to Concert for concert1
-INSERT INTO Concert (date, location, lineup, tour, media, notes) VALUES
+INSERT INTO Concert (date, name, location, lineup, tour, media, notes) VALUES
     ('1971',
+    ('Live On Radio Bremen'),
     (SELECT locationID FROM `Location` WHERE venueName = 'Radio Bremen'),
     (SELECT members FROM LineupMembers WHERE `concertID` = 1),
     NULL,
@@ -75,13 +76,13 @@ INSERT INTO Tracklist (concertID, trackNum, track) VALUES
     ((SELECT id FROM Concert WHERE name = 'Live On Radio Bremen'), 5, (SELECT trackID FROM Track WHERE name = 'Rueckstoss Gondliere') );
 
 /*
-other stuff for concert2:
-
+stuff for concert2:
+*/
 -- create row for concert2 location
-INSERT INTO Location (venueName, country) VALUES ('Nakano Sun Plaza', 'Tokyo, Japan');
+INSERT INTO `Location` (`venueName`, `country`) VALUES ('Nakano Sun Plaza', 'Tokyo, Japan');
 
 -- create lineup for concert2
-INSERT INTO LineupMembers (concertID, memberName) VALUES (2, 'Karl Bartos'), (2, 'Ralf Hütter'), (2, 'Wolfgang Flür');
+INSERT INTO LineupMembers (`concertID`, `members`) VALUES (2, 'Karl Bartos, Florian Schneider, Ralf Hütter, Wolfgang Flür');
 
 -- create tracks played at concert2
 INSERT INTO Track (`name`, `release`) VALUES
@@ -97,33 +98,27 @@ INSERT INTO Track (`name`, `release`) VALUES
     ('The Robots', 'The Man-Machine'),
     ('Its More Fun To Compute', 'Computer World');
 
+    -- add row to Concert for concert2
+        INSERT INTO Concert (date, name, location, lineup, tour, media, notes) VALUES
+        ('7/9/1981',
+        ('Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'),
+        (SELECT LocationID FROM `Location` WHERE venueName = 'Nakano Sun Plaza'),
+        (SELECT members FROM LineupMembers WHERE `concertID` = 2),
+        'Computer World Tour',
+        'https://www.youtube.com/watch?v=J0vfwuSVDgw',
+        'Concert from the 1981 Computer World tour in which Kraftwerk disassembled their studio to bring with them on tour. The song Its More Fun To Compute is an alternative live version'
+     );
+
 -- create tracklist for concert2
 INSERT INTO Tracklist (concertID, trackNum, track) VALUES
-    (2, 1, (SELECT trackID FROM Track WHERE name = 'Beethoven-Intro') ),
-    (2, 2, (SELECT trackID FROM Track WHERE name = 'Numbers') ),
-    (2, 3, (SELECT trackID FROM Track WHERE name = 'Computerworld') ),
-    (2, 4, (SELECT trackID FROM Track WHERE name = 'Computer Love') ),
-    (2, 5, (SELECT trackID FROM Track WHERE name = 'Homecomputer') ),
-    (2, 6, (SELECT trackID FROM Track WHERE name = 'Neonlights') ),
-    (2, 7, (SELECT trackID FROM Track WHERE name = 'Autobahn') ),
-    (2, 8, (SELECT trackID FROM Track WHERE name = 'Showroom Dummies') ),
-    (2, 9, (SELECT trackID FROM Track WHERE name = 'Trans Europe Express') ),
-    (2, 10, (SELECT trackID FROM Track WHERE name = 'The Robots') ),
-    (2, 11, (SELECT trackID FROM Track WHERE name = 'Its More Fun To Compute') );
-
--- add row to Concert for concert2
--- INSERT INTO Concert (`date`, `location`, lineup, tour, tracklist, media, notes) VALUES
-INSERT INTO Concert (date, location, tour, media, notes) VALUES
-    ('7/9/1981',
-    (SELECT LocationID FROM `Location` WHERE venueName = 'Nakano Sun Plaza'),
- --   (SELECT * FROM LineupMembers WHERE memberName IN ('Karl Bartos', 'Florian Schneider', 'Ralf Hütter', 'Wolfgang Flür') ),
-    'Computer World Tour',
---    (SELECT tracklist FROM Tracklist WHERE concertID = 2),
-    'https://www.youtube.com/watch?v=J0vfwuSVDgw',
-    'Concert from the 1981 Computer World tour in which Kraftwerk disassembled their studio to bring with them on tour. The song Its More Fun To Compute is an alternative live version'
- );
-
-
-
-
-*/
+    ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 1, (SELECT trackID FROM Track WHERE name = 'Beethoven-Intro') ),
+    ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 2, (SELECT trackID FROM Track WHERE name = 'Numbers') ),
+    ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 3, (SELECT trackID FROM Track WHERE name = 'Computerworld') ),
+    ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 4, (SELECT trackID FROM Track WHERE name = 'Computer Love') ),
+    ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 5, (SELECT trackID FROM Track WHERE name = 'Homecomputer') ),
+    ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 6, (SELECT trackID FROM Track WHERE name = 'Neonlights') ),
+    ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 7, (SELECT trackID FROM Track WHERE name = 'Autobahn') ),
+    ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 8, (SELECT trackID FROM Track WHERE name = 'Showroom Dummies') ),
+    ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 9, (SELECT trackID FROM Track WHERE name = 'Trans Europe Express') ),
+    ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 10, (SELECT trackID FROM Track WHERE name = 'The Robots') ),
+    ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 11, (SELECT trackID FROM Track WHERE name = 'Its More Fun To Compute') );
