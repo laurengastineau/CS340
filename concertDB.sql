@@ -55,13 +55,17 @@ CREATE TABLE `Tracklist` (
     PRIMARY KEY (`concertID`, `track`)
 )ENGINE=InnoDB;
 
-
+/*
+INSERT INTO Tracklist (concertID, trackNum, track) VALUES ((SELECT id FROM Concert WHERE date = '1971'), 1, (SELECT trackID FROM Track WHERE name = 'Heavy Metal Kids'));
+*/
+/* old not working
 INSERT INTO Tracklist (concertID, trackNum, track) VALUES 
     (1, 1, (SELECT trackID FROM Track WHERE name = 'Heavy Metal Kids') ),
     (1, 2, (SELECT trackID FROM Track WHERE name = 'Stratovarius') ),
     (1, 3, (SELECT trackID FROM Track WHERE name = 'Ruckzuck') ),
     (1, 4, (SELECT trackID FROM Track WHERE name = 'Vom Himmel Hoch') ),
     (1, 5, (SELECT trackID FROM Track WHERE name = 'Rueckstoss Gondliere') );
+*/
 
 -- add row to Concert for concert1
 INSERT INTO Concert (date, location, tour, lineup, media, notes, tracklist) VALUES 
@@ -71,7 +75,7 @@ INSERT INTO Concert (date, location, tour, lineup, media, notes, tracklist) VALU
     NULL,
     'https://www.youtube.com/watch?v=lTP-Clo62Dg',
     'Recorded without founder Ralf Hutter. Featuring Klaus Dinger of NEU! on drums. ',
-    (SELECT tracklistID FROM Tracklist WHERE concertID = 1)
+    (SELECT tl.trackNum, t.name FROM Tracklist tl INNER JOIN Track t ON tl.track = t.id WHERE tl.concertID = 0),
  );
 
 
