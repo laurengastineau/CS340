@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Kraftwerk Concerts</title>
+  </head>
+  <body>
+    <header>
+        <!-- The <i> tag below includes the bullhorn icon from Font Awesome -->
+        <a href="#"><h1 class="site-title"><i class="fa fa-hand-lizard-o"></i> Kraftwerk Concerts</h1></a>
+        <nav class="navbar">
+          <ul class="navlist">
+            <li class="navitem navlink active"><a href="#">Home</a></li>
+            </li>
+          </ul>
+        </nav>
+      </header> 
+      <main class="concert-container">
+
+        <article class="concert">
+          <div class="concert-content">
+            <p class="concert-name">
+                Live on Radio Bremen
+            </p>
+            <p class="concert-date">
+                1971
+            </p>
+            <p class="concert-location">
+                1
+            </p>
+            <p class="concert-memberLineup">
+                Klaus Dinger, Florian Schneider, Michael Rother
+            </p>
+            <p class="concert-tour">
+                
+            </p>
+            <p class="concert-media">
+                https://www.youtube.com/watch?v=lTP-Clo62Dg 
+            </p>
+            <p class="concert-note">
+                Concert from the 1981 Computer World tour in which...
+            </p>
+          </div>
+        </article>
+      </main> 
+      <button type="button" id="create-concert-button"><i class="fa fa-bullhorn"></i></button>
+      <div id="modal-backdrop" class="hidden"></div>
+      <div id="create-concert-modal" class="hidden">
+        <div class="modal-dialog">
+  
+          <div class="modal-header">
+            <h3>Add Concert</h3>
+            <button type="button" class="modal-close-button">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="concert-input-element">
+              <label for="concert-name-input">Concert Name</label>
+              <input type="text" id="concert-name-input">
+            </div>
+            <div class="concert-input-element">
+              <label for="concert-date-input">Concert Date</label>
+              <input type="text" id="concert-date-input">
+            </div>
+            <div class="concert-input-element">
+                    <label for="concert-location-input">Concert Location</label>
+                    <input type="text" id="concert-location-input">
+            </div>
+            <div class="concert-input-element">
+                    <label for="concert-memberLineup-input">Concert Member Lineup</label>
+                    <input type="text" id="concert-memberLineup-input">
+            </div>
+            <div class="concert-input-element">
+                    <label for="concert-note-input">Concert Note</label>
+                    <textarea id="concert-note-input"></textarea>
+            </div>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="modal-cancel-button">Cancel</button>
+            <button type="button" class="modal-accept-button">Create Concert</button>
+          </div>
+  
+        </div>
+      </div>
+  
+    </body>
+  
+    <script src="index.js" charset="utf-8"></script>
+</html>
