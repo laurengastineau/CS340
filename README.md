@@ -1,3 +1,9 @@
-# CS340
+need to figure out how to host these php files, just drop into engr server directory?
 
-This database collects concert information for the German electronic band Kraftwerk. They have an extensive touring history, playing live concerts since the 70’s. This database aims to neatly organize information on their live shows, such as the date, venue, lineup, tracklist, and links to audio/video recordings of the show. 
+- can locally host php files by downloading php and running 'php -S localhost:8000'
+- html makes request to getTable.php, which will connect to mysql and retrieve database info
+- usefull resources:
+
+https://www.w3schools.com/php/php_mysql_update.asp
+https://www.w3schools.com/php/php_mysql_select.asp
+https://www.w3schools.com/php/php_ajax_xml.asp
