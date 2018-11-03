@@ -22,19 +22,35 @@ function showEntity(str) {
 //get page? like /index.??
 app.get('/',function(req,res,next){
   console.log("inside apt.get function");
+  //console.log("req="+req);
+  //console.log("res="+res);
+  //console.log("next="+next);
   var context = {};
   
   mysql.pool.query('SELECT * FROM Concert', function(err, rows, fields){
-    
-    //Concert_contents is the name of the value in the home.handlebars (html code) file
     context.Concert_contents = JSON.stringify(rows);
+  });
 
-    //idk what this line does, returns query results?
+  mysql.pool.query('SELECT * FROM Location', function(err, rows, fields){
+    context.Location_contents = JSON.stringify(rows);
+  }); 
+
+  mysql.pool.query('SELECT * FROM LineupMembers', function(err, rows, fields){
+    context.Lineup_contents = JSON.stringify(rows);
+  }); 
+  
+  mysql.pool.query('SELECT * FROM Track', function(err, rows, fields){
+    context.Track_contents = JSON.stringify(rows);
+  }); 
+
+  mysql.pool.query('SELECT * FROM Tracklist', function(err, rows, fields){
+    context.Tracklist_contents = JSON.stringify(rows);
+    //idk exactly what this line does, returns query results (context) to home.handlebars i believe
     res.render('home',context);
+  }); 
 
-  }); //end of select qeury
-
-});//end of app.get('/'
+  
+});
 
 
 app.use(function(req,res){

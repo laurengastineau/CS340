@@ -50,23 +50,42 @@
     </select>
   </form>
   <div id="txt"><b>Entity table will be listed here:</b></div>
-  <p>sql result is: {{Concert_contents}}</p>
+  <!--<p>sql result is: {{Concert_contents}}</p>
+  <p>sql result is: {{Concert_contents}}</p>-->
+  <p id="tableDisplay" onclick="myFunction()">Temp</p>
 
 </html>
 
 
 <script>
 
+  //displays database info based on dropdown selection
   function showEntity(str) {
     console.log("inside showEntity function")
 
     if (str == "") {
       document.getElementById("txt").innerHTML = "";
       return;
+
     } else if (str == "Concerts") {
-      //String ConcertDBReturn = {{Concert_contents}}
       console.log("str=Concert")
-      //make database call, call app.get function in diagnostic.js?
+      document.getElementById("tableDisplay").innerHTML = "{{Concert_contents}}";
+      
+    } else if(str == "Locations"){
+      console.log("str=Locations")
+      document.getElementById("tableDisplay").innerHTML = "{{Location_contents}}";
+
+    } else if(str == "Lineups"){
+      console.log("str=Lineups")
+      document.getElementById("tableDisplay").innerHTML = "{{Lineup_contents}}";
+
+    } else if(str == "Tracks"){
+      console.log("str=Tracks")
+      document.getElementById("tableDisplay").innerHTML = "{{Track_contents}}";
+    
+    }else if(str == "Tracklists"){
+      console.log("str=Tracklists")
+      document.getElementById("tableDisplay").innerHTML = "{{Tracklist_contents}}";
     }
 
   }
