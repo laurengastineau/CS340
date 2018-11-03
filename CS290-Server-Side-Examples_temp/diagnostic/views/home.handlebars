@@ -12,25 +12,6 @@
 
 <html>
 
-<head>
-  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sensor Node DBMS</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-    crossorigin="anonymous">
-
-
-  <!-- Horizontal Menu  -->
-  <!-- need to figure out how to link to different handlebars pages -->
-  <ul class="horizontal_Menu">
-    <li class="menu_Item"><a class="menu_Link" href="">View Content</a></li>
-    <li class="menu_Item"><a class="menu_Link" href="/modify.html">Modify Content</a></li>
-    <li class="menu_Item"><a class="menu_Link" href="/relational.html">Search Content</a></li>
-    <br>
-    <div style="margin: 0; position:relative; height:5px; padding:0px; background-color:white;"></div>
-  </ul>
-</head>
-<!-- END Horizontal Menu  -->
-
 
 <body>
 
@@ -50,14 +31,82 @@
     </select>
   </form>
   <div id="txt"><b>Entity table will be listed here:</b></div>
-  <!--<p>sql result is: {{Concert_contents}}</p>
-  <p>sql result is: {{Concert_contents}}</p>-->
   <p id="tableDisplay" onclick="myFunction()">Temp</p>
 
+</body>
+<br>
+<body>
+    <h3 class="info">  Select an Table to add a row: (move to modify page eventually):</h3>
+     <form class="table_add_dropdown">
+    <select name="users" onchange="addEntity(this.value)">
+      <option value="">Select an Entity:</option>
+      <option value="Concerts">Concerts</option>
+      <option value="Locations">Locations</option>
+      <option value="Lineups">Lineups</option>
+      <option value="Tracks">Tracks</option>
+      <option value="Tracklists">Tracklists</option>
+    </select>
+  </form>
+    <p id="addRowDisplay" >Temp</p>
+</body>
+
+<!-- html code for 'Add Location' fields, set to hidden by default -->
+<div class="modal-body" id='addLocation' style="display: none;">
+            <h3>Add Location</h3>
+          <div class="modal-body">
+            <div class="location-input-element">
+              <label for="location-venueName-input">Venue Name</label>
+              <input type="text" id="location-venueName-input">
+            </div>
+            <div class="location-input-element">
+              <label for="location-country-input">Country</label>
+              <input type="text" id="location-country-input">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="modal-cancel-button">Cancel</button>  <!-- clear fields ? -->
+              <button type="button" value = "addLocation" class="modal-accept-button" onclick="addEntityClick(this.value)">Create Location</button>
+            </div>
+</div>
+
+
 </html>
-
-
 <script>
+
+  //when an 'add entity' button is clicked, this function will clear all the text fields and send the data to the diagnostic.js file to add values to database
+  function addEntityClick(str){
+
+  }
+
+  //selects what to display for adding an entity, all 'add x' fields should be hidden by default and selecting them makes it visible
+    function addEntity(str) {
+    console.log("inside addEntity function")
+
+    if (str == "") {
+      //do nothing
+
+    } else if (str == "Concerts") {
+      //unhide concerts create fields
+      
+    } else if(str == "Locations"){
+      //unhide Add Locations fields
+      var x = document.getElementById("addLocation");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+
+    } else if(str == "Lineups"){
+
+
+    } else if(str == "Tracks"){
+
+    
+    }else if(str == "Tracklists"){
+
+    }
+
+  }
 
   //displays database info based on dropdown selection
   function showEntity(str) {
@@ -87,7 +136,6 @@
       console.log("str=Tracklists")
       document.getElementById("tableDisplay").innerHTML = "{{Tracklist_contents}}";
     }
-
   }
 
 </script>
