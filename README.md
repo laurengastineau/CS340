@@ -1,12 +1,19 @@
-HOSTING USING NODE.JS
+To run the website:
+1) log on to flip using putty or whatever and type 'hostname' to find out what number flip your on (gonna either be flip1 flip2 or flip3)
 
+2)clone this branch and cd in /CS340/CS290-Server-Side-Examples_temp/diagnostic
+
+3)You need to choose a port for hosting(like 5328)
+There are two ways to host the server:
+- momentarily: will only be up for as long as you have the window open
+Run using: "$ node diagnostic.js 5328"
+
+- forever: will keep running even after you close the window, this is what we'll do before submitting an assignment.
 host server forever using command:
-$ ./node_modules/forever/bin/forever start diagnostic.js 5378
+"$ ./node_modules/forever/bin/forever start diagnostic.js 5378"
 
-type 'hostname' to find out which flip server im on
-host server one time with 'node diagnostic.js 5326'
-visit url: 'flip1.engr.oregonstate.edu:5326'
+4) Once server is up and running, go to the url of your current flip version from step 1 and the port, such as: 'flip1.engr.oregonstate.edu:5326'
 
-mite have to run npm install ? or command for npm to install node.js
+Might have to run npm install ? or command for npm to install node.js? let me know if there are troubles running website
 
 # CS290-Server-Side-Examples
