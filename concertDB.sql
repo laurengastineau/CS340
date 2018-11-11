@@ -28,9 +28,10 @@ INSERT INTO `Location` (`venueName`, `country`) VALUES ('Radio Bremen', 'Germany
 
 DROP TABLE IF EXISTS LineupMembers;
 CREATE TABLE `LineupMembers` (
+    `lineupID` int(11) NOT NULL AUTO_INCREMENT,
     `concertID` int(11) NOT NULL,
     `members` varchar(255) NOT NULL,
-    PRIMARY KEY (`members`)
+    PRIMARY KEY (`lineupID`)
 ) ENGINE=InnoDB;
 
 -- create row for concert 1 lineup
@@ -40,20 +41,22 @@ DROP TABLE IF EXISTS Track;
 CREATE TABLE `Track`(
     `trackID` int(11) NOT NULL AUTO_INCREMENT,
     `name` varchar(255) NOT NULL,
-    `release` varchar(255) NOT NULL,
+    `releaseName` varchar(255) NOT NULL,
     PRIMARY KEY (`trackID`)
 ) ENGINE=InnoDB;
 
 -- create tracks played at concert 1
-INSERT INTO Track (`name`, `release`) VALUES ('Heavy Metal Kids', 'unreleased'), ('Stratovarius', 'Kraftwerk 1'), ('Ruckzuck', 'Kraftwerk 1'), ('Vom Himmel Hoch', 'Kraftwerk 1'), ('Rueckstoss Gondliere', 'unreleased');
+INSERT INTO Track (`name`, `releaseName`) VALUES ('Heavy Metal Kids', 'unreleased'), ('Stratovarius', 'Kraftwerk 1'), ('Ruckzuck', 'Kraftwerk 1'), ('Vom Himmel Hoch', 'Kraftwerk 1'), ('Rueckstoss Gondliere', 'unreleased');
 
 
 DROP TABLE IF EXISTS Tracklist;
 CREATE TABLE `Tracklist` (
+    `tracklistID` int(11) NOT NULL AUTO_INCREMENT,
     `concertID` int(11) NOT NULL REFERENCES `Concert` (`id`),
     `track` varchar(255) NOT NULL REFERENCES `Track` (`trackID`),
     `trackNum` int(11) NOT NULL,
-    PRIMARY KEY (`concertID`, `track`)
+    PRIMARY KEY (`tracklistID`)
+    -- PRIMARY KEY (`concertID`, `track`)
 )ENGINE=InnoDB;
 
 -- add row to Concert for concert1
@@ -86,7 +89,7 @@ INSERT INTO `Location` (`venueName`, `country`) VALUES ('Nakano Sun Plaza', 'Tok
 INSERT INTO LineupMembers (`concertID`, `members`) VALUES (2, 'Karl Bartos, Florian Schneider, Ralf Hütter, Wolfgang Flür');
 
 -- create tracks played at concert2
-INSERT INTO Track (`name`, `release`) VALUES
+INSERT INTO Track (`name`, `releaseName`) VALUES
     ('Beethoven-Intro', 'unreleased'),
     ('Numbers', 'Computer World'),
     ('Computerworld', 'Computer World'),
