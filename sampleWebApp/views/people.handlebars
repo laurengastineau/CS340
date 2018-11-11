@@ -1,0 +1,194 @@
+<html>
+{{#each foo}}
+{{this}}
+{{/each}}
+
+<body>
+    <!-- <h3 class="info">Select an Table to add an entity:</h3> -->
+    <form class="table_add_dropdown">
+        <select name="users" onchange="unHide(this.value)">
+            <option value="reset">Select an entity to add:</option>
+            <option value="addConcert">Concert</option>
+            <option value="addLocation">Location</option>
+            <option value="addLineup">Lineup</option>
+            <option value="addTrack">Track</option>
+            <option value="addTracklist">Tracklist</option>
+        </select>
+    </form>
+    <p id="addRowDisplay"></p>
+</body>
+
+<!-- add concert -->
+<div class="modal-body" id='addConcert' style="display: none;">
+    <h3>Add new concert:</h3>
+    <form id="addConcert" action="/people/addConcert" method="post">
+        Name: <input type="text" name="name"><br>
+        Date: <input type="text" name="date"><br>
+        
+        Location: <select name="location">
+            {{#each locations}}
+            <option value="{{locationID}}">{{venueName}} {{country}}</option>
+            {{/each}}
+        </select><br>
+
+        Lineup: <select name="lineup">
+             {{#each lineupMembers}}
+            <option value="{{lineupID}}">{{members}}</option>
+            {{/each}}
+        </select><br>
+
+        Tour: <input type="text" name="tour"><br>
+
+        Tracklist: <select name="tracklist">
+            {{#each tracklists}}
+            <option value="{{concertID}}">{{concertID}}</option>
+            {{/each}}
+        </select><br>
+
+        Media: <input type="text" name="media"><br>
+        Notes: <input type="text" name="notes"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<!-- add location -->
+<div class="modal-body" id='addLocation' style="display: none;">
+    <h3>Add new location:</h3>
+    <form id="addLocation" action="/people/addLocation" method="post">
+        Venue name: <input type="text" name="venueName"><br>
+        Country: <input type="text" name="country"><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<!-- add lineup -->
+<div class="modal-body" id='addLineup' style="display: none;">
+    <h3>Add new lineup:</h3>
+    <form id="addLineup" action="/people/addLineup" method="post">
+        Members: <input type="text" name="members"><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<!-- add Track -->
+<div class="modal-body" id='addTrack' style="display: none;">
+    <h3>Add new track:</h3>
+    <form id="addTrack" action="/people/addTrack" method="post">
+        Track name: <input type="text" name="name"><br>
+        Release name: <input type="text" name="releaseName"><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<!-- add Tracklist -->
+<div class="modal-body" id='addTracklist' style="display: none;">
+    <h3>Add new tracklist:</h3>
+    <form id="addTracklist" action="/people/addTracklist" method="post">
+        Track number: <input type="text" name="trackNum"><br>
+
+        Track: <select name="track">
+            {{#each tracks}}
+            <option value="{{trackID}}">{{name}}</option>
+            {{/each}}
+        </select><br>
+
+        Concert: <select name="concertID">
+            {{#each concerts}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select><br>
+
+        <input type="submit" value="Submit">
+</div>
+
+<!--
+<h3>Add new people:</h3>
+<form id="addperson" action="/people" method="post">
+    First name: <input type="text" name="fname"><br>
+    Last name: <input type="text" name="lname"><br>
+    Homeworld: <select name="homeworld"> 
+        {{#each planets}}
+        <option value="{{id}}">{{name}}</option>
+        {{/each}}
+    </select><br>
+    Age: <input type="number" name="age"><br>
+    <input type="submit" value="Submit">
+ </form>
+<br/>
+-->
+
+<!-- 
+<form id='filter_people' action='' method=''>
+    <label> Filter by homeworld </label>
+    <select id='homeworld_filter' name="homeworld"> 
+        {{#each planets}}
+        <option value="{{id}}">{{name}}</option>
+        {{/each}}
+    </select><br>
+    <input type="button" value="Filter" onclick="filterPeopleByHomeworld()">
+</form>
+-->
+<!--
+<form id='search_people' action='' method=''>
+    <label> Search people for first name starting with:</label>
+    <input id='first_name_search_string' type='text' name='first_name_search_string' value=''>
+    <input type="button" value="Search" onclick="searchPeopleByFirstName()">
+</form>
+-->
+
+<!--
+<h3>Current people:</h3>
+<table>
+    <thead> 
+        <th>First Name</th> 
+        <th>Last Name</th> 
+        <th>Homeworld</th>
+        <th>Age</th>  
+    </thead> 
+    <tbody>
+        {{#each people}} 
+        <tr> 
+            <td>{{fname}}</td> 
+            <td>{{lname}}</td> 
+            <td>{{homeworld}}</td> 
+            <td>{{age}}</td>
+            <td><button onclick="deletePerson({{id}})">Delete</button></td>
+            <td><a href="/people/{{id}}">Update</a></td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table> 
+-->
+
+</html>
+
+
+<script>
+
+    //selects what to display for adding an entity, all 'add x' fields should be hidden by default and selecting them makes it visible
+    function unHide(str) {
+        console.log("inside addEntity function")
+        if (str == "reset") {
+            //set everything to hidden
+            hideAllInserts()
+        } else {
+            hideAllInserts()
+            var x = document.getElementById(str);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    }
+
+    //hides all "add new x" divs
+    function hideAllInserts() {
+        document.getElementById("addConcert").style.display = "none";
+        document.getElementById("addLocation").style.display = "none";
+        document.getElementById("addLineup").style.display = "none";
+        document.getElementById("addTrack").style.display = "none";
+        document.getElementById("addTracklist").style.display = "none";
+    }
+</script>
