@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS Concert;
 CREATE TABLE `Concert` (
     `id` int(11) AUTO_INCREMENT,
     `name` varchar(255) NOT NULL,
-    `date` int(11) NOT NULL,
+    `date` datetime NOT NULL,
     `location` varchar(255) NOT NULL DEFAULT 0 REFERENCES `Location` (`venueName`),
     `lineup` varchar(255) NOT NULL REFERENCES `LineupMembers` (`members`),
     `tour` varchar(255) DEFAULT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE `Tracklist` (
 
 -- add row to Concert for concert1
 INSERT INTO Concert (date, name, location, lineup, tour, media, notes) VALUES
-    ('1971',
+    ('1971/1/1',
     ('Live On Radio Bremen'),
     (SELECT locationID FROM `Location` WHERE venueName = 'Radio Bremen'),
     (SELECT members FROM LineupMembers WHERE `concertID` = 1),
@@ -104,7 +104,7 @@ INSERT INTO Track (`name`, `releaseName`) VALUES
 
     -- add row to Concert for concert2
         INSERT INTO Concert (date, name, location, lineup, tour, media, notes) VALUES
-        ('7/9/1981',
+        ('1981/7/9',
         ('Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'),
         (SELECT LocationID FROM `Location` WHERE venueName = 'Nakano Sun Plaza'),
         (SELECT members FROM LineupMembers WHERE `concertID` = 2),
