@@ -25,7 +25,7 @@ module.exports = function(){
     });
 
     function getTracklists(res, mysql, context, complete){
-        mysql.pool.query("SELECT * FROM Tracklist", function(error, results, fields){
+        mysql.pool.query("SELECT DISTINCT concertID FROM Tracklist", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
