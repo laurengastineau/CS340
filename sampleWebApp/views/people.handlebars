@@ -1,0 +1,275 @@
+<html>
+{{#each foo}}
+{{this}}
+{{/each}}
+
+<body>
+    <!-- <h3 class="info">Select an Table to add an entity:</h3> -->
+    <form class="table_add_dropdown">
+        <select name="users" onchange="unHide(this.value)">
+            <option value="reset">Select an entity to add:</option>
+            <option value="Concert">Concert</option>
+            <option value="Location">Location</option>
+            <option value="Lineup">Lineup</option>
+            <option value="Track">Track</option>
+            <option value="Tracklist">Tracklist</option>
+        </select>
+    </form>
+    <p id="addRowDisplay"></p>
+</body>
+
+<!-- add concert -->
+<div class="modal-body" id='addConcert' style="display: none;">
+    <h3>Add new concert:</h3>
+    <form id="addConcert" action="/people/addConcert" method="post">
+        Name: <input type="text" name="name"><br>
+        Date: <input type="text" name="date"><br>
+        
+        Location: <select name="location">
+            {{#each locations}}
+            <option value="{{locationID}}">{{venueName}} {{country}}</option>
+            {{/each}}
+        </select><br>
+
+        Lineup: <select name="lineup">
+             {{#each lineupMembers}}
+            <option value="{{lineupID}}">{{members}}</option>
+            {{/each}}
+        </select><br>
+
+        Tour: <input type="text" name="tour"><br>
+
+        Tracklist: <select name="tracklist">
+            {{#each tracklists}}
+            <option value="{{concertID}}">{{concertID}}</option>
+            {{/each}}
+        </select><br>
+
+        Media: <input type="text" name="media"><br>
+        Notes: <input type="text" name="notes"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<!-- add location -->
+<div class="modal-body" id='addLocation' style="display: none;">
+    <h3>Add new location:</h3>
+    <form id="addLocation" action="/people/addLocation" method="post">
+        Venue name: <input type="text" name="venueName"><br>
+        Country: <input type="text" name="country"><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<!-- add lineup -->
+<div class="modal-body" id='addLineup' style="display: none;">
+    <h3>Add new lineup:</h3>
+    <form id="addLineup" action="/people/addLineup" method="post">
+        Members: <input type="text" name="members"><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<!-- add Track -->
+<div class="modal-body" id='addTrack' style="display: none;">
+    <h3>Add new track:</h3>
+    <form id="addTrack" action="/people/addTrack" method="post">
+        Track name: <input type="text" name="name"><br>
+        Release name: <input type="text" name="releaseName"><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<!-- add Tracklist -->
+<div class="modal-body" id='addTracklist' style="display: none;">
+    <h3>Add new tracklist:</h3>
+    <form id="addTracklist" action="/people/addTracklist" method="post">
+        Track number: <input type="text" name="trackNum"><br>
+
+        Track: <select name="track">
+            {{#each tracks}}
+            <option value="{{trackID}}">{{name}}</option>
+            {{/each}}
+        </select><br>
+
+        Concert: <select name="concertID">
+            {{#each concerts}}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select><br>
+
+        <input type="submit" value="Submit">
+</div>
+
+
+{{!-- Display concerts in table --}}
+<div class="modal-body" id="viewConcert" style="display: none;">
+    <h3>Concerts:</h3>
+    <table >
+        <thead> 
+            <th>Name</th> 
+            <th>Date</th> 
+            <th>Location</th>
+            <th>Lineup</th>  
+            <th>Tour</th> 
+            <th>Tracklist</th> 
+            <th>Media</th>
+            <th>Notes</th>
+        </thead> 
+        <tbody>
+            {{#each concerts}} 
+            <tr> 
+                <td>{{name}}</td> 
+                <td>{{date}}</td> 
+                <td>{{location}}</td> 
+                <td>{{lineup}}</td>
+                <td>{{tour}}</td>
+                <td>{{tracklist}}</td>
+                <td>{{media}}</td>
+                <td>{{notes}}</td>
+                <td><button onclick="deleteConcert({{id}})">Delete</button></td>
+                {{!-- <td><a href="/people/{{id}}">Update</a></td> --}}
+            </tr> 
+            {{/each}} 
+        </tbody> 
+    </table>
+</div>
+
+{{!-- Display locations in table --}}
+<div class="modal-body" id="viewLocation" style="display: none;">
+    <h3>Locations:</h3>
+    <table>
+        <thead> 
+            <th>Venue Name</th> 
+            <th>Country</th> 
+        </thead> 
+        <tbody>
+            {{#each locations}} 
+            <tr> 
+                <td>{{venueName}}</td> 
+                <td>{{country}}</td> 
+                <td><button onclick="deleteLocation({{id}})">Delete</button></td>
+                {{!-- <td><a href="/people/{{id}}">Update</a></td> --}}
+            </tr> 
+            {{/each}} 
+        </tbody> 
+    </table>
+</div>
+
+{{!-- Display lineup members in table --}}
+<div class="modal-body" id="viewLineup" style="display: none;">
+    <h3>Lineup Members:</h3>
+    <table>
+        <thead> 
+            <th>Members</th> 
+        </thead> 
+        <tbody>
+            {{#each lineupMembers}} 
+            <tr> 
+                <td>{{members}}</td> 
+                <td><button onclick="deleteLineup({{id}})">Delete</button></td>
+                {{!-- <td><a href="/people/{{id}}">Update</a></td> --}}
+            </tr> 
+            {{/each}} 
+        </tbody> 
+    </table>
+</div>
+
+{{!-- Display tracks in table --}}
+<div class="modal-body" id="viewTrack" style="display: none;">
+    <h3>Tracks:</h3>
+    <table>
+        <thead> 
+            <th>Track Name</th> 
+            <th>Release Name</th>
+        </thead> 
+        <tbody>
+            {{#each tracks}} 
+            <tr> 
+                <td>{{name}}</td> 
+                <td>{{releaseName}}</td> 
+
+                <td><button onclick="deletetrack({{id}})">Delete</button></td>
+                {{!-- <td><a href="/people/{{id}}">Update</a></td> --}}
+            </tr> 
+            {{/each}} 
+        </tbody> 
+    </table>
+</div>
+
+{{!-- Display lineup members in table --}}
+<div class="modal-body" id="viewTracklist" style="display: none;">
+    <h3>Tracklists:</h3>
+    <table>
+        <thead> 
+            <th>Track Number</th>
+            <th>Track</th>
+            <th>Concert</th>             
+        </thead> 
+        <tbody>
+            {{#each tracklists}} 
+            <tr> 
+                <td>{{trackNum}}</td> 
+                <td>{{track}}</td>
+                <td>{{concertID}}</td>                 
+                <td><button onclick="deleteTrack(list{{id}})">Delete</button></td>
+                {{!-- <td><a href="/people/{{id}}">Update</a></td> --}}
+            </tr> 
+            {{/each}} 
+        </tbody> 
+    </table>
+</div>
+</html>
+
+<script>
+
+    //selects what to display for adding an entity, all 'add x' fields should be hidden by default and selecting them makes it visible
+    function unHide(str) {
+        console.log("inside addEntity function")
+        console.log("str = "+str)
+        if (str == "reset") {
+            //set everything to hidden
+            hideAllInserts()
+            hideAllViewTables()
+        } else {
+            hideAllInserts()
+            hideAllViewTables()
+
+            var xString = "add"+str
+            var zString = "view"+str 
+            console.log("xString = "+xString + ", zString =  "+zString)
+
+            var x = document.getElementById(xString);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+
+            var z = document.getElementById(zString);
+            if (z.style.display === "none") {
+                z.style.display = "block";
+            } else {
+                z.style.display = "none";
+            }
+    
+        }
+    }
+
+    //hides all "add new x" divs
+    function hideAllInserts() {
+        document.getElementById("addConcert").style.display = "none";
+        document.getElementById("addLocation").style.display = "none";
+        document.getElementById("addLineup").style.display = "none";
+        document.getElementById("addTrack").style.display = "none";
+        document.getElementById("addTracklist").style.display = "none";
+    }
+    function hideAllViewTables(){
+        document.getElementById("viewConcert").style.display = "none";
+        document.getElementById("viewLocation").style.display = "none";
+        document.getElementById("viewLineup").style.display = "none";
+        document.getElementById("viewTrack").style.display = "none";
+        document.getElementById("viewTracklist").style.display = "none";
+    }
+</script>
