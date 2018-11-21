@@ -7,10 +7,10 @@ module.exports = function(){
     //get table data
     router.get('/', function(req, res){
         console.log("inside router.get function")
+
         var callbackCount = 0;
         var context = {};
-       
-        context.jsscripts = ["deleteperson.js","filterpeople.js","searchpeople.js"];
+        context.jsscripts = ["deletelocation.js"];
         var mysql = req.app.get('mysql');
         getTracks(res, mysql, context, complete);
         getConcerts(res, mysql, context, complete);
@@ -186,6 +186,28 @@ module.exports = function(){
         console.log("inside getTracks get function")
     }); 
 
+
+    router.delete('/deleteLocation/:id', function(req, res){
+        console.log("router.delete /deleteLocation/:id")
+       
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM Location WHERE locationID = ?";
+        var inserts = [req.params.id];
+        console.log("inserts = "+inserts)
+        
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202).end();
+            }
+        })
+        
+    })
+
+   /* 
     //delete concert row
     router.delete('/:id', function(req, res){
         var mysql = req.app.get('mysql');
@@ -201,7 +223,8 @@ module.exports = function(){
             }
         })
     }) 
-    
+*/
+
     // /* Find people whose fname starts with a given string in the req */
     // function getPeopleWithNameLike(req, res, mysql, context, complete) {
     //   //sanitize the input as well as include the % character
