@@ -1,6 +1,7 @@
-function filterPeopleByHomeworld() {
+function filterPeopleByConcert() {
+    console.log("filter button clicked")  
     //get the id of the selected homeworld from the filter dropdown
-    var homeworld_id = document.getElementById('homeworld_filter').value
+    var concert_id = document.getElementById('concert_filter').value
     //construct the URL and redirect to it
-    window.location = '/people/filter/' + parseInt(homeworld_id)
+    window.location = '/people/filter/' + parseInt(concert_id)
 }

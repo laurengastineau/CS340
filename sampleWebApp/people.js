@@ -10,7 +10,7 @@ module.exports = function(){
 
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deletelocation.js", "deletelineup.js", "deletetrack.js", "deletetracklist.js", "deleteconcert.js"];
+        context.jsscripts = ["deletelocation.js", "deletelineup.js", "deletetrack.js", "deletetracklist.js", "deleteconcert.js", "filterpeople.js"];
         var mysql = req.app.get('mysql');
         getTracks(res, mysql, context, complete);
         getConcerts(res, mysql, context, complete);
@@ -24,6 +24,22 @@ module.exports = function(){
             }
         }  
     });
+
+     /*Display all attributes from a given concert. Requires web based javascript to delete users with AJAX*/
+     router.get('/filter/:concert', function(req, res){
+        var callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["deleteconcert.js", "filterpeople.js"];
+        var mysql = req.app.get('mysql');
+        getConcerts(res, mysql, context, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 2){
+                res.render('people', context);
+            }
+
+        }
+    });   
 
     //get tracklists data
     function getTracklists(res, mysql, context, complete){
@@ -39,7 +55,7 @@ module.exports = function(){
 
     //get lineups data
     function getLineups(res, mysql, context, complete){
-        mysql.pool.query("SELECT * FROM LineupMembers", function(error, results, fields){
+        mysql.pool.query("SELECT lineupID, concertID, members FROM LineupMembers", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -51,7 +67,7 @@ module.exports = function(){
 
     //get locations data
     function getLocations(res, mysql, context, complete){
-        mysql.pool.query("SELECT * FROM Location", function(error, results, fields){
+        mysql.pool.query("SELECT locationID, venueName, country FROM Location", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -63,7 +79,7 @@ module.exports = function(){
 
     //get concerts data
     function getConcerts(res, mysql, context, complete){
-        mysql.pool.query("SELECT * FROM Concert", function(error, results, fields){
+        mysql.pool.query("SELECT c.id, c.name, c.date, c.location, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c INNER JOIN (SELECT locationID FROM Location) l ON l.locationID = c.id", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -75,8 +91,7 @@ module.exports = function(){
 
     //get tracks data
     function getTracks(res, mysql, context, complete){
-        var old_sql = "SELECT bsg_people.character_id as id, fname, lname, bsg_planets.name AS homeworld, age FROM bsg_people INNER JOIN bsg_planets ON homeworld = bsg_planets.planet_id"
-        var sql = "SELECT * FROM Track"
+        var sql = "SELECT trackID, name, releaseName FROM Track"
         mysql.pool.query(sql, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));

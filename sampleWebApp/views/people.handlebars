@@ -18,6 +18,17 @@
     <p id="addRowDisplay"></p>
 </body>
 
+<form id='filterConcert' action='' method='' style="display: none;">
+<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    <label> Filter by concert </label>
+    <select id='concert_filter' name="concert"> 
+        {{#each concerts}}
+        <option value="{{id}}">{{name}}</option>
+        {{/each}}
+    </select><br>
+    <input type="button" value="Filter" onclick="filterPeopleByConcert()">
+</form>
+
 <!-- add concert -->
 <div class="modal-body" id='addConcert' style="display: none;">
     <h3>Add new concert:</h3>
@@ -232,13 +243,16 @@
             //set everything to hidden
             hideAllInserts()
             hideAllViewTables()
+            hideAllFilters()
         } else {
             hideAllInserts()
             hideAllViewTables()
+            hideAllFilters()
 
             var xString = "add"+str
-            var zString = "view"+str 
-            console.log("xString = "+xString + ", zString =  "+zString)
+            var zString = "view"+str
+            var yString = "filter"+str
+            console.log("xString = "+xString + ", zString =  "+zString, "yString = "+yString)
 
             var x = document.getElementById(xString);
             if (x.style.display === "none") {
@@ -253,6 +267,13 @@
             } else {
                 z.style.display = "none";
             }
+            
+            var y = document.getElementById(yString);
+            if (y.style.display === "none") {
+                y.style.display = "block";
+            } else {
+                y.style.display = "none";
+            }           
     
         }
     }
@@ -271,5 +292,9 @@
         document.getElementById("viewLineup").style.display = "none";
         document.getElementById("viewTrack").style.display = "none";
         document.getElementById("viewTracklist").style.display = "none";
+    }
+    function hideAllFilters(){
+        document.getElementById("filterConcert").style.display = "none";
+
     }
 </script>
