@@ -99,6 +99,12 @@ DELETE FROM Location WHERE locationID = :locationIDinput;
 
 --delete a track
 DELETE FROM Track WHERE trackID = :trackIDinput;
+
+--delete a tracklist
+DELETE FROM Tracklist WHERE concertID = :concertIDinput
+
+--delete a lineup
+DELETE FROM LineupMembers WHERE lineupID = :lineupIDinput
  
 
 

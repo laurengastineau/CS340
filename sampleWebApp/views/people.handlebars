@@ -168,7 +168,7 @@
             {{#each lineupMembers}} 
             <tr> 
                 <td>{{members}}</td> 
-                <td><button onclick="deleteLineup({{id}})">Delete</button></td>
+                <td><button onclick="deleteLineup({{lineupID}})">Delete</button></td>
                 {{!-- <td><a href="/people/{{id}}">Update</a></td> --}}
             </tr> 
             {{/each}} 
@@ -190,7 +190,7 @@
                 <td>{{name}}</td> 
                 <td>{{releaseName}}</td> 
 
-                <td><button onclick="deletetrack({{id}})">Delete</button></td>
+                <td><button onclick="deleteTrack({{trackID}})">Delete</button></td>
                 {{!-- <td><a href="/people/{{id}}">Update</a></td> --}}
             </tr> 
             {{/each}} 
@@ -213,7 +213,7 @@
                 <td>{{trackNum}}</td> 
                 <td>{{track}}</td>
                 <td>{{concertID}}</td>                 
-                <td><button onclick="deleteTrack(list{{id}})">Delete</button></td>
+                <td><button onclick="deleteTracklist({{concertID}})">Delete</button></td>
                 {{!-- <td><a href="/people/{{id}}">Update</a></td> --}}
             </tr> 
             {{/each}} 

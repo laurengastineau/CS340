@@ -10,7 +10,7 @@ module.exports = function(){
 
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deletelocation.js"];
+        context.jsscripts = ["deletelocation.js", "deletelineup.js", "deletetrack.js", "deletetracklist.js", "deleteconcert.js"];
         var mysql = req.app.get('mysql');
         getTracks(res, mysql, context, complete);
         getConcerts(res, mysql, context, complete);
@@ -188,13 +188,11 @@ module.exports = function(){
 
 
     router.delete('/deleteLocation/:id', function(req, res){
-        console.log("router.delete /deleteLocation/:id")
-       
+        console.log("router.delete /deleteLocation/:id")  
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM Location WHERE locationID = ?";
         var inserts = [req.params.id];
         console.log("inserts = "+inserts)
-        
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
@@ -203,16 +201,66 @@ module.exports = function(){
             }else{
                 res.status(202).end();
             }
-        })
-        
-    })
+        })   
+    });
 
-   /* 
-    //delete concert row
-    router.delete('/:id', function(req, res){
+    router.delete('/deleteLineup/:id', function(req, res){
+        console.log("router.delete /deleteLineup/:id")  
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM LineupMembers WHERE lineupID = ?";
+        var inserts = [req.params.id];
+        console.log("inserts = "+inserts)
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202).end();
+            }
+        })   
+    }); 
+    
+    router.delete('/deleteTrack/:id', function(req, res){
+        console.log("router.delete /deleteTrack/:id")  
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM Track WHERE trackID = ?";
+        var inserts = [req.params.id];
+        console.log("inserts = "+inserts)
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202).end();
+            }
+        })   
+    }); 
+
+    router.delete('/deleteTracklist/:id', function(req, res){
+        console.log("router.delete /deleteTracklist/:id")  
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM Tracklist WHERE concertID = ?";
+        var inserts = [req.params.id];
+        console.log("inserts = "+inserts)
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202).end();
+            }
+        })   
+    }); 
+
+    router.delete('/deleteConcert/:id', function(req, res){
+        console.log("router.delete /deleteConcert/:id")  
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM Concert WHERE id = ?";
         var inserts = [req.params.id];
+        console.log("inserts = "+inserts)
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
@@ -221,9 +269,9 @@ module.exports = function(){
             }else{
                 res.status(202).end();
             }
-        })
-    }) 
-*/
+        })   
+    }); 
+
 
     // /* Find people whose fname starts with a given string in the req */
     // function getPeopleWithNameLike(req, res, mysql, context, complete) {
