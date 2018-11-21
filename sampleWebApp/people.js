@@ -25,13 +25,15 @@ module.exports = function(){
         }  
     });
 
-     /*Display all attributes from a given concert. Requires web based javascript to delete users with AJAX*/
-     router.get('/filter/:concert', function(req, res){
+     /*Display all attributes from a given lineup. Requires web based javascript to delete users with AJAX*/
+     router.get('/filter/:lineup', function(req, res){
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleteconcert.js", "filterpeople.js"];
+        // context.jsscripts = ["deletelocation.js", "deletelineup.js", "deletetrack.js", "deletetracklist.js", "deleteconcert.js", "filterpeople.js"];
         var mysql = req.app.get('mysql');
+        getConcertsByLineups(req, res, mysql, context, complete);
         getConcerts(res, mysql, context, complete);
+        getLineups(res, mysql, context, complete); 
         function complete(){
             callbackCount++;
             if(callbackCount >= 2){
@@ -40,6 +42,19 @@ module.exports = function(){
 
         }
     });   
+    function getConcertsByLineups(req, res, mysql, context, complete){
+        var query = "SELECT * FROM Concert C INNER JOIN LineupMembers LM ON C.lineupID = LM.lineupID WHERE LM.members = ?";
+        console.log(req.params)
+        var inserts = [req.params.lineup]
+        mysql.pool.query(query, inserts, function(error, results, fields){
+              if(error){
+                  res.write(JSON.stringify(error));
+                  res.end();
+              }
+              context.people = results;
+              complete();
+          });
+      }
 
     //get tracklists data
     function getTracklists(res, mysql, context, complete){
@@ -79,7 +94,7 @@ module.exports = function(){
 
     //get concerts data
     function getConcerts(res, mysql, context, complete){
-        mysql.pool.query("SELECT c.id, c.name, c.date, c.location, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c INNER JOIN (SELECT locationID FROM Location) l ON l.locationID = c.id", function(error, results, fields){
+        mysql.pool.query("SELECT c.id, c.name, c.date, c.location, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c LEFT JOIN Location l ON c.locationID = l.locationID", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
