@@ -18,7 +18,7 @@
     <p id="addRowDisplay"></p>
 </body>
 
-<form id='filterConcert' action='' method='' style="display: none;">
+{{!-- <form id='filterConcert' action='' method='' style="display: none;">
 <!--- this form does not submit directly, the button handles all the interaction with backend -->
     <label> Filter by lineup </label>
     <select id='lineup_filter' name="lineup"> 
@@ -27,7 +27,10 @@
         {{/each}}
     </select><br>
     <input type="button" value="Filter" onclick="filterPeopleByLineup()">
-</form>
+</form> --}}
+
+<input type="text" id="filterConcert" onkeyup="searchConcerts()"
+placeholder="Search for concerts..">
 
 <!-- add concert -->
 <div class="modal-body" id='addConcert' style="display: none;">

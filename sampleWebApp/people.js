@@ -25,23 +25,23 @@ module.exports = function(){
         }  
     });
 
-     /*Display all attributes from a given lineup. Requires web based javascript to delete users with AJAX*/
-     router.get('/filter/:lineup', function(req, res){
-        var callbackCount = 0;
-        var context = {};
-        // context.jsscripts = ["deletelocation.js", "deletelineup.js", "deletetrack.js", "deletetracklist.js", "deleteconcert.js", "filterpeople.js"];
-        var mysql = req.app.get('mysql');
-        getConcertsByLineups(req, res, mysql, context, complete);
-        getConcerts(res, mysql, context, complete);
-        getLineups(res, mysql, context, complete); 
-        function complete(){
-            callbackCount++;
-            if(callbackCount >= 2){
-                res.render('people', context);
-            }
+    //  /*Display all attributes from a given lineup. Requires web based javascript to delete users with AJAX*/
+    //  router.get('/filter/:lineup', function(req, res){
+    //     var callbackCount = 0;
+    //     var context = {};
+    //     // context.jsscripts = ["deletelocation.js", "deletelineup.js", "deletetrack.js", "deletetracklist.js", "deleteconcert.js", "filterpeople.js"];
+    //     var mysql = req.app.get('mysql');
+    //     getConcertsByLineups(req, res, mysql, context, complete);
+    //     getConcerts(res, mysql, context, complete);
+    //     getLineups(res, mysql, context, complete); 
+    //     function complete(){
+    //         callbackCount++;
+    //         if(callbackCount >= 2){
+    //             res.render('people', context);
+    //         }
+    //     }
+    // });  
 
-        }
-    });   
     function getConcertsByLineups(req, res, mysql, context, complete){
         var query = "SELECT * FROM Concert C INNER JOIN LineupMembers LM ON C.lineupID = LM.lineupID WHERE LM.members = ?";
         console.log(req.params)
@@ -94,7 +94,7 @@ module.exports = function(){
 
     //get concerts data
     function getConcerts(res, mysql, context, complete){
-        mysql.pool.query("SELECT c.id, c.name, c.date, c.location, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c LEFT JOIN Location l ON c.locationID = l.locationID", function(error, results, fields){
+        mysql.pool.query("SELECT c.id, c.date, c.name, c.location, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c LEFT JOIN Location L ON L.locationID = c.locationID", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
