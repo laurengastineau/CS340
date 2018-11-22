@@ -18,26 +18,15 @@
     <p id="addRowDisplay"></p>
 </body>
 
-{{!-- <form id='filterConcert' action='' method='' style="display: none;">
-<!--- this form does not submit directly, the button handles all the interaction with backend -->
-    <label> Filter by lineup </label>
-    <select id='lineup_filter' name="lineup"> 
-        {{#each lineupMembers}}
-        <option value="{{lineupID}}">{{members}}</option>
-        {{/each}}
-    </select><br>
-    <input type="button" value="Filter" onclick="filterPeopleByLineup()">
-</form> --}}
-
 <input type="text" id="filterConcert" onkeyup="searchConcerts()"
-placeholder="Search for concerts..">
+placeholder="Search for concerts.." style="display: none;">
 
 <!-- add concert -->
 <div class="modal-body" id='addConcert' style="display: none;">
     <h3>Add new concert:</h3>
     <form id="addConcert" action="/people/addConcert" method="post">
-        Name: <input type="text" name="name"><br>
-        Date: <input type="text" name="date"><br>
+        Name: <input type="text" name="name" placeholder="Add concert name"><br>
+        Date: <input type="text" name="date" placeholder="YYY/MM/DD"><br>
         
         Location: <select name="location">
             {{#each locations}}
@@ -51,7 +40,7 @@ placeholder="Search for concerts..">
             {{/each}}
         </select><br>
 
-        Tour: <input type="text" name="tour"><br>
+        Tour: <input type="text" name="tour" placeholder="Add tour name"><br>
 
         Tracklist: <select name="tracklist">
             {{#each tracklists}}
@@ -59,8 +48,8 @@ placeholder="Search for concerts..">
             {{/each}}
         </select><br>
 
-        Media: <input type="text" name="media"><br>
-        Notes: <input type="text" name="notes"><br>
+        Media: <input type="text" name="media" placeholder="Add media link"><br>
+        Notes: <input type="text" name="notes" placeholder="Add additional notes"><br>
 
         <input type="submit" value="Submit">
     </form>
@@ -72,7 +61,7 @@ placeholder="Search for concerts..">
     <form id="addLocation" action="/people/addLocation" method="post">
         Venue name: <input type="text" name="venueName"><br>
         Country: <input type="text" name="country"><br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" placeholder="Add location">
     </form>
 </div>
 
@@ -81,7 +70,7 @@ placeholder="Search for concerts..">
     <h3>Add new lineup:</h3>
     <form id="addLineup" action="/people/addLineup" method="post">
         Members: <input type="text" name="members"><br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" placeholder="Add lineup members">
     </form>
 </div>
 
@@ -91,7 +80,7 @@ placeholder="Search for concerts..">
     <form id="addTrack" action="/people/addTrack" method="post">
         Track name: <input type="text" name="name"><br>
         Release name: <input type="text" name="releaseName"><br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" placeholder="Add track name"> 
     </form>
 </div>
 

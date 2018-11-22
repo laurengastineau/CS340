@@ -25,37 +25,6 @@ module.exports = function(){
         }  
     });
 
-    //  /*Display all attributes from a given lineup. Requires web based javascript to delete users with AJAX*/
-    //  router.get('/filter/:lineup', function(req, res){
-    //     var callbackCount = 0;
-    //     var context = {};
-    //     // context.jsscripts = ["deletelocation.js", "deletelineup.js", "deletetrack.js", "deletetracklist.js", "deleteconcert.js", "filterpeople.js"];
-    //     var mysql = req.app.get('mysql');
-    //     getConcertsByLineups(req, res, mysql, context, complete);
-    //     getConcerts(res, mysql, context, complete);
-    //     getLineups(res, mysql, context, complete); 
-    //     function complete(){
-    //         callbackCount++;
-    //         if(callbackCount >= 2){
-    //             res.render('people', context);
-    //         }
-    //     }
-    // });  
-
-    function getConcertsByLineups(req, res, mysql, context, complete){
-        var query = "SELECT * FROM Concert C INNER JOIN LineupMembers LM ON C.lineupID = LM.lineupID WHERE LM.members = ?";
-        console.log(req.params)
-        var inserts = [req.params.lineup]
-        mysql.pool.query(query, inserts, function(error, results, fields){
-              if(error){
-                  res.write(JSON.stringify(error));
-                  res.end();
-              }
-              context.people = results;
-              complete();
-          });
-      }
-
     //get tracklists data
     function getTracklists(res, mysql, context, complete){
         mysql.pool.query("SELECT DISTINCT concertID FROM Tracklist", function(error, results, fields){
@@ -94,7 +63,7 @@ module.exports = function(){
 
     //get concerts data
     function getConcerts(res, mysql, context, complete){
-        mysql.pool.query("SELECT c.id, c.date, c.name, c.location, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c LEFT JOIN Location L ON L.locationID = c.locationID", function(error, results, fields){
+        mysql.pool.query("SELECT c.id, c.date, c.name, l.venueName, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c INNER JOIN (SELECT locationID, venueName FROM Location) L ON L.locationID = c.locationID", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -301,45 +270,6 @@ module.exports = function(){
             }
         })   
     }); 
-
-
-    // /* Find people whose fname starts with a given string in the req */
-    // function getPeopleWithNameLike(req, res, mysql, context, complete) {
-    //   //sanitize the input as well as include the % character
-    //    var query = "SELECT bsg_people.character_id as id, fname, lname, bsg_planets.name AS homeworld, age FROM bsg_people INNER JOIN bsg_planets ON homeworld = bsg_planets.planet_id WHERE bsg_people.fname LIKE " + mysql.pool.escape(req.params.s + '%');
-    //   console.log(query)
-
-    //   mysql.pool.query(query, function(error, results, fields){
-    //         if(error){
-    //             res.write(JSON.stringify(error));
-    //             res.end();
-    //         }
-    //         context.people = results;
-    //         complete();
-    //     });
-    // }
-     
-   
-    /* The URI that update data is sent to in order to update a person */
-    /*
-    router.put('/:id', function(req, res){
-        var mysql = req.app.get('mysql');
-        console.log(req.body)
-        console.log(req.params.id)
-        var sql = "UPDATE bsg_people SET fname=?, lname=?, homeworld=?, age=? WHERE character_id=?";
-        var inserts = [req.body.fname, req.body.lname, req.body.homeworld, req.body.age, req.params.id];
-        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
-            if(error){
-                console.log(error)
-                res.write(JSON.stringify(error));
-                res.end();
-            }else{
-                res.status(200);
-                res.end();
-            }
-        });
-    });
-    */
-
+  
     return router;
 }();
