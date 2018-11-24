@@ -26,7 +26,7 @@ placeholder="Search for concerts.." style="display: none;">
     <h3>Add new concert:</h3>
     <form id="addConcert" action="/people/addConcert" method="post">
         Name: <input type="text" name="name" placeholder="Add concert name"><br>
-        Date: <input type="text" name="date" placeholder="YYY/MM/DD"><br>
+        Date: <input type="text" name="date" placeholder="YYYY/MM/DD"><br>
         
         Location: <select name="location">
             {{#each locations}}
@@ -132,7 +132,7 @@ placeholder="Search for concerts.." style="display: none;">
                 <td>{{media}}</td>
                 <td>{{notes}}</td>
                 <td><button onclick="deleteConcert({{id}})">Delete</button></td>
-                {{!-- <td><a href="/people/{{id}}">Update</a></td> --}}
+                <td><a href="/people/{{id}}">Update</a></td>
             </tr> 
             {{/each}} 
         </tbody> 

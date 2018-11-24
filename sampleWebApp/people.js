@@ -63,7 +63,7 @@ module.exports = function(){
 
     //get concerts data
     function getConcerts(res, mysql, context, complete){
-        mysql.pool.query("SELECT c.id, c.date, c.name, l.venueName, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c INNER JOIN (SELECT locationID, venueName FROM Location) L ON L.locationID = c.locationID", function(error, results, fields){
+        mysql.pool.query("SELECT c.id, c.date, c.name, l.venueName, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c LEFT JOIN Location l ON l.locationID = c.locationID", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -85,6 +85,19 @@ module.exports = function(){
             complete();
         });
     } 
+
+    function getConcert(res, mysql, context, id, complete){
+        var sql = "SELECT id as id, name, date, location, lineup, tour, tracklist, media, notes FROM Concert WHERE id = ?";
+        var inserts = [id];
+        mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.concert = results[0];
+            complete();
+        });
+    }   
 
     //insert new concert 
     router.post('/addConcert', function(req, res){
@@ -181,11 +194,6 @@ module.exports = function(){
         });  
     });
 
-    router.get('/getTracks', function(req, res){
-        console.log("inside getTracks get function")
-    }); 
-
-
     router.delete('/deleteLocation/:id', function(req, res){
         console.log("router.delete /deleteLocation/:id")  
         var mysql = req.app.get('mysql');
@@ -270,6 +278,48 @@ module.exports = function(){
             }
         })   
     }); 
+
+     /* Display one concert for the specific purpose of updating concert */
+
+     router.get('/:id', function(req, res){
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["selectedplanet.js", "updateperson.js"];
+        var mysql = req.app.get('mysql');
+        getConcert(res, mysql, context, req.params.id, complete);
+        getConcerts(res, mysql, context, complete);      
+        getTracks(res, mysql, context, complete);
+        getLocations(res, mysql, context, complete);
+        getLineups(res, mysql, context, complete); 
+        getTracklists(res, mysql, context, complete); 
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 2){
+                res.render('update-person', context);
+            }
+
+        }
+    });   
+
+    /* The URI that update data is sent to in order to update a person */
+
+    router.put('/:id', function(req, res){
+        var mysql = req.app.get('mysql');
+        console.log(req.body)
+        console.log(req.params.id)
+        var sql = "UPDATE Concert SET name=?, date=?, location=?, lineup=?, tour=?, tracklist=?, media=?, notes=? WHERE id=?";
+        var inserts = [req.body.name, req.body.date, req.body.location, req.body.lineup, req.body.tour, req.body.tracklist, req.body.media, req.body.ntoes, req.params.id];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
+            }
+        });
+    });   
   
     return router;
 }();

@@ -1,15 +1,27 @@
 <html>
-<h1>Update {{person.fname}} {{person.lname}}:</h1>
+<h1>Update Concert {{concert.name}}:</h1>
 <form id="update-person" action="/people" method="post">
-    First name: <input type="text" name="fname" value="{{person.fname}}"><br>
-    Last name: <input type="text" name="lname" value="{{person.lname}}"><br>
-    Homeworld: <select name="homeworld" id="planet-selector"> 
-        {{#each planets}}
-        <option value="{{id}}">{{name}}</option>
-        {{/each}}
-    </select><br>
-    Age: <input type="number" name="age" value="{{person.age}}"><br>
+        Name: <input type="text" name="name" placeholder="Add concert name"><br>
+        Date: <input type="text" name="date" placeholder="YYYY/MM/DD"><br>
+        Location: <select name="location">
+            {{#each locations}}
+            <option value="{{locationID}}">{{venueName}} {{country}}</option>
+            {{/each}}
+        </select><br>
+        Lineup: <select name="lineup">
+             {{#each lineupMembers}}
+            <option value="{{lineupID}}">{{members}}</option>
+            {{/each}}
+        </select><br>
+        Tour: <input type="text" name="tour" placeholder="Add tour name"><br>
+        Tracklist: <select name="tracklist">
+            {{#each tracklists}}
+            <option value="{{concertID}}">{{concertID}}</option>
+            {{/each}}
+        </select><br>
+        Media: <input type="text" name="media" placeholder="Add media link"><br>
+        Notes: <input type="text" name="notes" placeholder="Add additional notes"><br>
 </form>
-<button onclick="updatePerson({{person.id}})">Update</button>
-<script defer>selectPlanet({{person.homeworld}});</script>
+<button onclick="updatePerson({{concert.id}})">Update</button>
+<script defer>selectPlanet({{concert.id}});</script>
 </html>
