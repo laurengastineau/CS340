@@ -282,28 +282,35 @@ module.exports = function(){
      /* Display one concert for the specific purpose of updating concert */
 
      router.get('/:id', function(req, res){
+         console.log("people.js router.get /:id\n");
+         
         callbackCount = 0;
         var context = {};
         context.jsscripts = ["selectedplanet.js", "updateperson.js"];
         var mysql = req.app.get('mysql');
-        getConcert(res, mysql, context, req.params.id, complete);
+
+        //getConcert(res, mysql, context, req.params.id, complete);
         getConcerts(res, mysql, context, complete);      
         getTracks(res, mysql, context, complete);
         getLocations(res, mysql, context, complete);
         getLineups(res, mysql, context, complete); 
         getTracklists(res, mysql, context, complete); 
+
         function complete(){
             callbackCount++;
-            if(callbackCount >= 2){
+            if(callbackCount >= 5){
                 res.render('update-person', context);
             }
 
         }
+        
     });   
 
     /* The URI that update data is sent to in order to update a person */
 
     router.put('/:id', function(req, res){
+        console.log("people.js router.put /:id\n");
+       /*
         var mysql = req.app.get('mysql');
         console.log(req.body)
         console.log(req.params.id)
@@ -319,7 +326,9 @@ module.exports = function(){
                 res.end();
             }
         });
+        */
     });   
   
     return router;
+    
 }();

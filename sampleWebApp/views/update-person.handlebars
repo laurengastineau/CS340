@@ -1,4 +1,5 @@
 <html>
+    
 <h1>Update Concert {{concert.name}}:</h1>
 <form id="update-person" action="/people" method="post">
         Name: <input type="text" name="name" placeholder="Add concert name"><br>
@@ -24,4 +25,5 @@
 </form>
 <button onclick="updatePerson({{concert.id}})">Update</button>
 <script defer>selectPlanet({{concert.id}});</script>
+
 </html>
