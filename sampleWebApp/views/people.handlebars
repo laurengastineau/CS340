@@ -3,23 +3,27 @@
 {{this}}
 {{/each}}
 
-<body>
-    <!-- <h3 class="info">Select an Table to add an entity:</h3> -->
-    <form class="table_add_dropdown">
-        <select name="users" onchange="unHide(this.value)">
-            <option value="reset">Select an entity to add:</option>
-            <option value="Concert">Concert</option>
-            <option value="Location">Location</option>
-            <option value="Lineup">Lineup</option>
-            <option value="Track">Track</option>
-            <option value="Tracklist">Tracklist</option>
-        </select>
-    </form>
-    <p id="addRowDisplay"></p>
-</body>
+<header>
+  <title>Kraftwerk concert archives</title>
+  <link rel="stylesheet" href="/style.css" media="screen">
+</header>
 
-<input type="text" id="filterConcert" onkeyup="searchConcerts()"
-placeholder="Search for concerts.." style="display: none;">
+<body>
+    <div id="dropdown">
+        <!-- <h3 class="info">Select an Table to add an entity:</h3> -->
+        <form class="table_add_dropdown">
+            <select name="users" onchange="unHide(this.value)">
+                <option value="reset">Select an entity to add:</option>
+                <option value="Concert">Concert</option>
+                <option value="Location">Location</option>
+                <option value="Lineup">Lineup</option>
+                <option value="Track">Track</option>
+                <option value="Tracklist">Tracklist</option>
+            </select>
+        </form>
+        <p id="addRowDisplay"></p>
+    </div>
+</body>
 
 <!-- add concert -->
 <div class="modal-body" id='addConcert' style="display: none;">
@@ -59,9 +63,9 @@ placeholder="Search for concerts.." style="display: none;">
 <div class="modal-body" id='addLocation' style="display: none;">
     <h3>Add new location:</h3>
     <form id="addLocation" action="/people/addLocation" method="post">
-        Venue name: <input type="text" name="venueName"><br>
-        Country: <input type="text" name="country"><br>
-        <input type="submit" value="Submit" placeholder="Add location">
+        Venue name: <input type="text" name="venueName"  placeholder="Add venue name"><br>
+        Country: <input type="text" name="country" placeholder="Add country name"><br>
+        <input type="submit" value="Submit">
     </form>
 </div>
 
@@ -69,8 +73,8 @@ placeholder="Search for concerts.." style="display: none;">
 <div class="modal-body" id='addLineup' style="display: none;">
     <h3>Add new lineup:</h3>
     <form id="addLineup" action="/people/addLineup" method="post">
-        Members: <input type="text" name="members"><br>
-        <input type="submit" value="Submit" placeholder="Add lineup members">
+        Members: <input type="text" name="members" placeholder="Add lineup members"><br>
+        <input type="submit" value="Submit">
     </form>
 </div>
 
@@ -78,9 +82,9 @@ placeholder="Search for concerts.." style="display: none;">
 <div class="modal-body" id='addTrack' style="display: none;">
     <h3>Add new track:</h3>
     <form id="addTrack" action="/people/addTrack" method="post">
-        Track name: <input type="text" name="name"><br>
-        Release name: <input type="text" name="releaseName"><br>
-        <input type="submit" value="Submit" placeholder="Add track name"> 
+        Track name: <input type="text" name="name" placeholder="Add track name"><br>
+        Release name: <input type="text" name="releaseName"  placeholder="Add realse name"><br>
+        <input type="submit" value="Submit">
     </form>
 </div>
 
@@ -88,7 +92,7 @@ placeholder="Search for concerts.." style="display: none;">
 <div class="modal-body" id='addTracklist' style="display: none;">
     <h3>Add new tracklist:</h3>
     <form id="addTracklist" action="/people/addTracklist" method="post">
-        Track number: <input type="text" name="trackNum"><br>
+        Track number: <input type="text" name="trackNum"  placeholder="Add track number"><br>
 
         Track: <select name="track">
             {{#each tracks}}
@@ -105,11 +109,13 @@ placeholder="Search for concerts.." style="display: none;">
         <input type="submit" value="Submit">
 </div>
 
+<input type="text" id="filterConcert" onkeyup="searchConcerts()"
+placeholder="Search for concerts.." style="display: none;">
 
 {{!-- Display concerts in table --}}
 <div class="modal-body" id="viewConcert" style="display: none;">
     <h3>Concerts:</h3>
-    <table >
+    <table>
         <thead> 
             <th>Name</th> 
             <th>Date</th> 
@@ -131,8 +137,9 @@ placeholder="Search for concerts.." style="display: none;">
                 <td>{{tracklist}}</td>
                 <td>{{media}}</td>
                 <td>{{notes}}</td>
-                <td><button onclick="deleteConcert({{id}})">Delete</button></td>
-                <td><a href="/people/{{id}}">Update</a></td>
+                <td id="deleteButton"><button onclick="deleteConcert({{id}})">Delete</button></td>
+                <td id="updateButton"><button onclick="location.href='/people/{{id}}'">Update</button></td>
+                {{!-- <td><a href="/people/{{id}}">Update</a></td> --}}
             </tr> 
             {{/each}} 
         </tbody> 
