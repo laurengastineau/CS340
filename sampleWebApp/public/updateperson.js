@@ -1,4 +1,5 @@
 function updatePerson(id){
+    console.log('updateperson.js id\n');
     $.ajax({
         url: '/people/' + id,
         type: 'PUT',

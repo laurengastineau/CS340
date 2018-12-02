@@ -289,8 +289,8 @@ module.exports = function(){
         context.jsscripts = ["selectedplanet.js", "updateperson.js"];
         var mysql = req.app.get('mysql');
 
-        //getConcert(res, mysql, context, req.params.id, complete);
-        getConcerts(res, mysql, context, complete);      
+        getConcert(res, mysql, context, req.params.id, complete);
+        //getConcerts(res, mysql, context, complete);      
         getTracks(res, mysql, context, complete);
         getLocations(res, mysql, context, complete);
         getLineups(res, mysql, context, complete); 
@@ -310,12 +310,16 @@ module.exports = function(){
 
     router.put('/:id', function(req, res){
         console.log("people.js router.put /:id\n");
-       /*
+       
         var mysql = req.app.get('mysql');
         console.log(req.body)
         console.log(req.params.id)
+        
         var sql = "UPDATE Concert SET name=?, date=?, location=?, lineup=?, tour=?, tracklist=?, media=?, notes=? WHERE id=?";
-        var inserts = [req.body.name, req.body.date, req.body.location, req.body.lineup, req.body.tour, req.body.tracklist, req.body.media, req.body.ntoes, req.params.id];
+        var inserts = [req.body.name, req.body.date, req.body.location, req.body.lineup, req.body.tour, req.body.tracklist, req.body.media, req.body.notes, req.params.id];
+        console.log("inserts = ");
+        console.log(inserts);
+        
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log(error)
@@ -326,7 +330,7 @@ module.exports = function(){
                 res.end();
             }
         });
-        */
+        
     });   
   
     return router;
