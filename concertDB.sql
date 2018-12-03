@@ -25,9 +25,6 @@ CREATE TABLE `Location` (
     PRIMARY KEY (`locationID`)
 ) ENGINE=InnoDB;
 
--- create row for concert 1 location
-INSERT INTO `Location` (`venueName`, `country`) VALUES ('Radio Bremen', 'Germany');
-
 DROP TABLE IF EXISTS LineupMembers;
 CREATE TABLE `LineupMembers` (
     `lineupID` int(11) NOT NULL AUTO_INCREMENT,
@@ -36,9 +33,6 @@ CREATE TABLE `LineupMembers` (
     PRIMARY KEY (`lineupID`)
 ) ENGINE=InnoDB;
 
--- create row for concert 1 lineup
-INSERT INTO LineupMembers (`concertID`, `members`) VALUES (1, 'Klaus Dinger, Florian Schneider, Michael Rother');
-
 DROP TABLE IF EXISTS Track;
 CREATE TABLE `Track`(
     `trackID` int(11) NOT NULL AUTO_INCREMENT,
@@ -46,10 +40,6 @@ CREATE TABLE `Track`(
     `releaseName` varchar(255) NOT NULL,
     PRIMARY KEY (`trackID`)
 ) ENGINE=InnoDB;
-
--- create tracks played at concert 1
-INSERT INTO Track (`name`, `releaseName`) VALUES ('Heavy Metal Kids', 'unreleased'), ('Stratovarius', 'Kraftwerk 1'), ('Ruckzuck', 'Kraftwerk 1'), ('Vom Himmel Hoch', 'Kraftwerk 1'), ('Rueckstoss Gondliere', 'unreleased');
-
 
 DROP TABLE IF EXISTS Tracklist;
 CREATE TABLE `Tracklist` (
@@ -61,6 +51,18 @@ CREATE TABLE `Tracklist` (
     -- PRIMARY KEY (`concertID`, `track`)
 )ENGINE=InnoDB;
 
+
+
+
+
+-- Stuff for concert1:
+
+-- create row for concert 1 location
+INSERT INTO `Location` (`venueName`, `country`) VALUES ('Radio Bremen', 'Germany');
+-- create row for concert 1 lineup
+INSERT INTO LineupMembers (`concertID`, `members`) VALUES (1, 'Klaus Dinger, Florian Schneider, Michael Rother');
+-- create tracks played at concert 1
+INSERT INTO Track (`name`, `releaseName`) VALUES ('Heavy Metal Kids', 'unreleased'), ('Stratovarius', 'Kraftwerk 1'), ('Ruckzuck', 'Kraftwerk 1'), ('Vom Himmel Hoch', 'Kraftwerk 1'), ('Rueckstoss Gondliere', 'unreleased');
 -- add row to Concert for concert1
 INSERT INTO Concert (date, name, location, lineup, tour, media, notes) VALUES
     ('1971/1/1',
@@ -70,26 +72,22 @@ INSERT INTO Concert (date, name, location, lineup, tour, media, notes) VALUES
     NULL,
     'https://www.youtube.com/watch?v=lTP-Clo62Dg',
     'Recorded without founder Ralf Hutter. Featuring Klaus Dinger of NEU! on drums. '
-
  );
-
-
-INSERT INTO Tracklist (concertID, trackNum, track) VALUES
+-- create tracklist for concert1
+INSERT INTO `Tracklist` (concertID, trackNum, track) VALUES
     ((SELECT id FROM Concert WHERE name = 'Live On Radio Bremen'), 1, (SELECT trackID FROM Track WHERE name = 'Heavy Metal Kids') ),
     ((SELECT id FROM Concert WHERE name = 'Live On Radio Bremen'), 2, (SELECT trackID FROM Track WHERE name = 'Stratovarius') ),
     ((SELECT id FROM Concert WHERE name = 'Live On Radio Bremen'), 3, (SELECT trackID FROM Track WHERE name = 'Ruckzuck') ),
     ((SELECT id FROM Concert WHERE name = 'Live On Radio Bremen'), 4, (SELECT trackID FROM Track WHERE name = 'Vom Himmel Hoch') ),
     ((SELECT id FROM Concert WHERE name = 'Live On Radio Bremen'), 5, (SELECT trackID FROM Track WHERE name = 'Rueckstoss Gondliere') );
 
-/*
-stuff for concert2:
-*/
+
+-- stuff for concert2:
+
 -- create row for concert2 location
 INSERT INTO `Location` (`venueName`, `country`) VALUES ('Nakano Sun Plaza', 'Tokyo, Japan');
-
 -- create lineup for concert2
 INSERT INTO LineupMembers (`concertID`, `members`) VALUES (2, 'Karl Bartos, Florian Schneider, Ralf Hütter, Wolfgang Flür');
-
 -- create tracks played at concert2
 INSERT INTO Track (`name`, `releaseName`) VALUES
     ('Beethoven-Intro', 'unreleased'),
@@ -103,8 +101,7 @@ INSERT INTO Track (`name`, `releaseName`) VALUES
     ('Trans Europe Express', 'Trans Europe Express'),
     ('The Robots', 'The Man-Machine'),
     ('Its More Fun To Compute', 'Computer World');
-
-    -- add row to Concert for concert2
+-- add row to Concert for concert2
         INSERT INTO Concert (date, name, location, lineup, tour, media, notes) VALUES
         ('1981/7/9',
         ('Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'),
@@ -114,9 +111,8 @@ INSERT INTO Track (`name`, `releaseName`) VALUES
         'https://www.youtube.com/watch?v=J0vfwuSVDgw',
         'Concert from the 1981 Computer World tour in which Kraftwerk disassembled their studio to bring with them on tour. The song Its More Fun To Compute is an alternative live version'
      );
-
 -- create tracklist for concert2
-INSERT INTO Tracklist (concertID, trackNum, track) VALUES
+INSERT INTO `Tracklist` (concertID, trackNum, track) VALUES
     ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 1, (SELECT trackID FROM Track WHERE name = 'Beethoven-Intro') ),
     ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 2, (SELECT trackID FROM Track WHERE name = 'Numbers') ),
     ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 3, (SELECT trackID FROM Track WHERE name = 'Computerworld') ),
@@ -128,3 +124,45 @@ INSERT INTO Tracklist (concertID, trackNum, track) VALUES
     ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 9, (SELECT trackID FROM Track WHERE name = 'Trans Europe Express') ),
     ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 10, (SELECT trackID FROM Track WHERE name = 'The Robots') ),
     ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 11, (SELECT trackID FROM Track WHERE name = 'Its More Fun To Compute') );
+
+
+-- stuff for concert 3
+
+-- create row for concert3 location
+INSERT INTO `Location` (`venueName`, `country`) VALUES ('Forum', 'Leverkusen, Germany');
+-- same lineup as concert 2
+-- create tracks played at concert3
+INSERT INTO Track (`name`, `releaseName`) VALUES
+    ('Forum-Intro', 'unreleased'),
+    ('Kometenmelodie 1', 'Autobahn'),
+    ('Kometenmelodie 2', 'Autobahn'),
+    ('Tanzmusik', 'Autobahn'),
+    ('Autobahn (40 minute version)', 'Autobahn'),
+    ('Mitternacht', 'Autobahn'),
+    ('Tongebirge', 'Ralf und Florian'),
+    ('Morgenspaziergang', 'Autobahn');
+
+
+-- add row to concert for concert 3
+        INSERT INTO Concert (date, name, location, lineup, tour, media, notes) VALUES
+        ('1974/4/22',
+        ('Live in Leverkusen 1974'),
+        (SELECT LocationID FROM `Location` WHERE venueName = 'Forum'),
+        (SELECT members FROM LineupMembers WHERE `concertID` = 2),
+        NULL,
+        'https://www.youtube.com/watch?v=qcI8pcOy_WU',
+        'Contains the longest version of Autobahn clocking in at 40 minutes long. Double the LP version length.'
+     );
+-- create tracklist 
+INSERT INTO `Tracklist` (concertID, trackNum, track) VALUES
+    ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 1, (SELECT trackID FROM Track WHERE name = 'Forum-Intro') ),
+    ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 2, (SELECT trackID FROM Track WHERE name = 'Ruckzuck') ),
+    ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 3, (SELECT trackID FROM Track WHERE name = 'Kometenmelodie 1') ),
+    ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 4, (SELECT trackID FROM Track WHERE name = 'Kometenmelodie 2') ),
+    ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 5, (SELECT trackID FROM Track WHERE name = 'Tanzmusik') ),
+    ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 6, (SELECT trackID FROM Track WHERE name = 'Autobahn (40 minute version)') ),
+    ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 7, (SELECT trackID FROM Track WHERE name = 'Showroom Dummies') ),
+    ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 8, (SELECT trackID FROM Track WHERE name = 'Mitternacht') ),
+    ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 9, (SELECT trackID FROM Track WHERE name = 'Showroom Dummies') ), 
+    ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 10, (SELECT trackID FROM Track WHERE name = 'Tongebirge') ),
+    ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 11, (SELECT trackID FROM Track WHERE name = 'Morgenspaziergang') );
