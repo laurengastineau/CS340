@@ -6,8 +6,8 @@
 
 <h1>Update Concert {{concert.name}}:</h1>
 <form id="update-person" action="/people" method="post">
-        Name: <input type="text" name="name" placeholder="Add concert name"><br>
-        Date: <input type="text" name="date" placeholder="YYYY/MM/DD"><br>
+        Name: <input type="text" name="name" value="{{concert.name}}" placeholder="Add concert name"><br>
+        Date: <input type="text" name="date" value="{{concert.date}}" placeholder="YYYY/MM/DD"><br>
         Location: <select name="location">
             {{#each locations}}
             <option value="{{locationID}}">{{venueName}} {{country}}</option>
@@ -18,14 +18,14 @@
             <option value="{{lineupID}}">{{members}}</option>
             {{/each}}
         </select><br>
-        Tour: <input type="text" name="tour" placeholder="Add tour name"><br>
+        Tour: <input type="text" name="tour" value="{{concert.tour}}" placeholder="Add tour name"><br>
         Tracklist: <select name="tracklist">
             {{#each tracklists}}
             <option value="{{concertID}}">{{concertID}}</option>
             {{/each}}
         </select><br>
-        Media: <input type="text" name="media" placeholder="Add media link"><br>
-        Notes: <input type="text" name="notes" placeholder="Add additional notes"><br>
+        Media: <input type="text" name="media" value="{{concert.media}}" placeholder="Add media link"><br>
+        Notes: <input type="text" name="notes" value="{{concert.notes}}" placeholder="Add additional notes"><br>
 </form>
 <button onclick="updatePerson({{concert.id}})">Update</button>
 
