@@ -82,7 +82,7 @@ module.exports = function(){
     //get concerts data
     function getConcerts(res, mysql, context, complete){
         //var sqlReq = "SELECT c.id, c.date, c.name, l.venueName, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c LEFT JOIN Location l ON l.locationID = c.locationID"
-        var sqlReq = "SELECT c.id, c.date, c.name, c.location, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c"
+        var sqlReq = "SELECT c.id, c.date, c.name, c.location, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c LEFT JOIN Location l ON l.locationID = c.locationID"
         
         mysql.pool.query(sqlReq, function(error, results, fields){
             if(error){
