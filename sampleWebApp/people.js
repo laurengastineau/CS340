@@ -15,6 +15,7 @@ module.exports = function(){
         getTracks(res, mysql, context, complete);
         getConcerts(res, mysql, context, complete);
         getLocations(res, mysql, context, complete);
+        //getLocation(res, mysql, context, complete);
         getLineups(res, mysql, context, complete); 
         getTracklists(res, mysql, context, complete); 
         function complete(){
@@ -61,9 +62,29 @@ module.exports = function(){
         });
     }
 
+    function getLocation(res, mysql, context, id, complete){
+        console.log("get single location")
+        /*
+        var sql = "SELECT * FROM Location WHERE locationID = ?";
+        var inserts = [id];
+        mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.location = results; //results[0]
+            complete();
+        });
+        */
+       context.location = "hi";
+    }
+
     //get concerts data
     function getConcerts(res, mysql, context, complete){
-        mysql.pool.query("SELECT c.id, c.date, c.name, l.venueName, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c LEFT JOIN Location l ON l.locationID = c.locationID", function(error, results, fields){
+        //var sqlReq = "SELECT c.id, c.date, c.name, l.venueName, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c LEFT JOIN Location l ON l.locationID = c.locationID"
+        var sqlReq = "SELECT c.id, c.date, c.name, c.location, c.lineup, c.tour, c.tracklist, c.media, c.notes FROM Concert c"
+        
+        mysql.pool.query(sqlReq, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
