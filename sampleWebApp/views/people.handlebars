@@ -63,8 +63,8 @@ placeholder="Search for concerts.." style="display: none;">
 <div class="modal-body" id='addLocation' style="display: none;">
     <h3>Add new location:</h3>
     <form id="addLocation" action="/people/addLocation" method="post">
-        Venue name: <input type="text" name="venueName"><br>
-        Country: <input type="text" name="country"><br>
+        Venue name: <input type="text" name="venueName"  placeholder="Add venue name"><br>
+        Country: <input type="text" name="country" placeholder="Add country name"><br>
         <input type="submit" value="Submit" placeholder="Add location">
     </form>
 </div>
@@ -73,7 +73,7 @@ placeholder="Search for concerts.." style="display: none;">
 <div class="modal-body" id='addLineup' style="display: none;">
     <h3>Add new lineup:</h3>
     <form id="addLineup" action="/people/addLineup" method="post">
-        Members: <input type="text" name="members"><br>
+        Members: <input type="text" name="members" placeholder="Add lineup members"><br>
         <input type="submit" value="Submit" placeholder="Add lineup members">
     </form>
 </div>
@@ -82,8 +82,8 @@ placeholder="Search for concerts.." style="display: none;">
 <div class="modal-body" id='addTrack' style="display: none;">
     <h3>Add new track:</h3>
     <form id="addTrack" action="/people/addTrack" method="post">
-        Track name: <input type="text" name="name"><br>
-        Release name: <input type="text" name="releaseName"><br>
+        Track name: <input type="text" name="name" placeholder="Add track name"><br>
+        Release name: <input type="text" name="releaseName"  placeholder="Add realse name"><br>
         <input type="submit" value="Submit" placeholder="Add track name"> 
     </form>
 </div>
@@ -92,7 +92,7 @@ placeholder="Search for concerts.." style="display: none;">
 <div class="modal-body" id='addTracklist' style="display: none;">
     <h3>Add new tracklist:</h3>
     <form id="addTracklist" action="/people/addTracklist" method="post">
-        Track number: <input type="text" name="trackNum"><br>
+        Track number: <input type="text" name="trackNum"  placeholder="Add track number"><br>
 
         Track: <select name="track">
             {{#each tracks}}
