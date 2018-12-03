@@ -80,7 +80,8 @@ INSERT INTO `Tracklist` (concertID, trackNum, track) VALUES
     ((SELECT id FROM Concert WHERE name = 'Live On Radio Bremen'), 3, (SELECT trackID FROM Track WHERE name = 'Ruckzuck') ),
     ((SELECT id FROM Concert WHERE name = 'Live On Radio Bremen'), 4, (SELECT trackID FROM Track WHERE name = 'Vom Himmel Hoch') ),
     ((SELECT id FROM Concert WHERE name = 'Live On Radio Bremen'), 5, (SELECT trackID FROM Track WHERE name = 'Rueckstoss Gondliere') );
-
+ -- update concert 1 tracklist
+ UPDATE Concert SET tracklist = 1 WHERE name = 'Live On Radio Bremen';
 
 -- stuff for concert2:
 
@@ -124,7 +125,8 @@ INSERT INTO `Tracklist` (concertID, trackNum, track) VALUES
     ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 9, (SELECT trackID FROM Track WHERE name = 'Trans Europe Express') ),
     ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 10, (SELECT trackID FROM Track WHERE name = 'The Robots') ),
     ((SELECT id FROM Concert WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'), 11, (SELECT trackID FROM Track WHERE name = 'Its More Fun To Compute') );
-
+ -- update concert 2 tracklist
+ UPDATE Concert SET tracklist = 2 WHERE name = 'Live In Tokyo, Japan Nakano Sun Plaza 09.07.81';
 
 -- stuff for concert 3
 
@@ -166,3 +168,5 @@ INSERT INTO `Tracklist` (concertID, trackNum, track) VALUES
     ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 9, (SELECT trackID FROM Track WHERE name = 'Showroom Dummies') ), 
     ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 10, (SELECT trackID FROM Track WHERE name = 'Tongebirge') ),
     ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 11, (SELECT trackID FROM Track WHERE name = 'Morgenspaziergang') );
+ -- update concert 3 tracklist
+ UPDATE Concert SET tracklist = 3 WHERE name = 'Live in Leverkusen 1974';
