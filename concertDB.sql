@@ -66,11 +66,11 @@ INSERT INTO Track (`name`, `releaseName`) VALUES ('Heavy Metal Kids', 'unrelease
 -- add row to Concert for concert1
 INSERT INTO Concert (date, name, location, lineup, tour, media, notes) VALUES
     ('1971/1/1',
-    ('Live On Radio Bremen'),
+    ('Live On Radio Bremen 1971'),
     (SELECT locationID FROM `Location` WHERE venueName = 'Radio Bremen'),
     (SELECT members FROM LineupMembers WHERE `concertID` = 1),
     NULL,
-    'https://www.youtube.com/watch?v=lTP-Clo62Dg',
+    'https://www.youtube.com/embed/lTP-Clo62Dg',
     'Recorded without founder Ralf Hutter. Featuring Klaus Dinger of NEU! on drums. '
  );
 -- create tracklist for concert1
@@ -105,11 +105,11 @@ INSERT INTO Track (`name`, `releaseName`) VALUES
 -- add row to Concert for concert2
         INSERT INTO Concert (date, name, location, lineup, tour, media, notes) VALUES
         ('1981/7/9',
-        ('Live In Tokyo, Japan Nakano Sun Plaza 09.07.81'),
+        ('Tokyo, Japan 1981'),
         (SELECT LocationID FROM `Location` WHERE venueName = 'Nakano Sun Plaza'),
         (SELECT members FROM LineupMembers WHERE `concertID` = 2),
         'Computer World Tour',
-        'https://www.youtube.com/watch?v=J0vfwuSVDgw',
+        'https://www.youtube.com/embed/J0vfwuSVDgw',
         'Concert from the 1981 Computer World tour in which Kraftwerk disassembled their studio to bring with them on tour. The song Its More Fun To Compute is an alternative live version'
      );
 -- create tracklist for concert2
@@ -144,15 +144,14 @@ INSERT INTO Track (`name`, `releaseName`) VALUES
     ('Tongebirge', 'Ralf und Florian'),
     ('Morgenspaziergang', 'Autobahn');
 
-
 -- add row to concert for concert 3
         INSERT INTO Concert (date, name, location, lineup, tour, media, notes) VALUES
         ('1974/4/22',
-        ('Live in Leverkusen 1974'),
+        ('Leverkusen, Germany 1974'),
         (SELECT LocationID FROM `Location` WHERE venueName = 'Forum'),
         (SELECT members FROM LineupMembers WHERE `concertID` = 2),
         NULL,
-        'https://www.youtube.com/watch?v=qcI8pcOy_WU',
+        'https://www.youtube.com/embed/qcI8pcOy_WU',
         'Contains the longest version of Autobahn clocking in at 40 minutes long. Double the LP version length.'
      );
 -- create tracklist 
@@ -170,3 +169,53 @@ INSERT INTO `Tracklist` (concertID, trackNum, track) VALUES
     ((SELECT id FROM Concert WHERE name = 'Live in Leverkusen 1974'), 11, (SELECT trackID FROM Track WHERE name = 'Morgenspaziergang') );
  -- update concert 3 tracklist
  UPDATE Concert SET tracklist = 3 WHERE name = 'Live in Leverkusen 1974';
+
+ -- stuff for concert 4
+
+-- create row for concert4 location
+INSERT INTO `Location` (`venueName`, `country`) VALUES ('Solnahallen', 'Stockholm, Sweden');
+
+-- new lineup for 90's kraftwerk era concert 4
+INSERT INTO LineupMembers (`concertID`, `members`) VALUES (4, 'Ralf Hütter, Florian Schneider, Fritz Hilpert, Henning Schmitz');
+
+-- create tracks played at concert4
+INSERT INTO Track (`name`, `releaseName`) VALUES
+    ('Stockholm-Intro', 'unreleased'),
+    ('Tour De France', 'Tour De France (single)'),
+    ('Radioactivity', 'Radioactivity'),
+    ('Abzug', 'Trans Europe Express'),
+    ('Metal On Metal', 'Trans Europe Express'),
+    ('Pocket Calculator', 'Computer World'),
+    ('Music-Non Stop', 'Electric Café'),
+    ('The Model', 'Man Machine');
+
+
+-- add row to concert for concert 4
+        INSERT INTO Concert (date, name, location, lineup, tour, media, notes) VALUES
+        ('1991/10/20',
+        ('Stockholm, Sweden 1991'),
+        (SELECT LocationID FROM `Location` WHERE venueName = 'Solnahallen'),
+        (SELECT members FROM LineupMembers WHERE `concertID` = 4),
+        "The Mix Album Release Support Tour",
+        'https://www.youtube.com/embed/FjztLigYmHQ',
+        "90's era Kraftwerk tour in support of their album The Mix"
+     );
+
+-- create tracklist 
+INSERT INTO `Tracklist` (concertID, trackNum, track) VALUES
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 1, (SELECT trackID FROM Track WHERE name = 'Stockholm-Intro') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 2, (SELECT trackID FROM Track WHERE name = 'Numbers') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 3, (SELECT trackID FROM Track WHERE name = 'Computerworld') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 4, (SELECT trackID FROM Track WHERE name = 'Homecomputer') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 5, (SELECT trackID FROM Track WHERE name = 'Computer Love') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 6, (SELECT trackID FROM Track WHERE name = 'The Model') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 7, (SELECT trackID FROM Track WHERE name = 'Tour De France') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 8, (SELECT trackID FROM Track WHERE name = 'Autobahn') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 9, (SELECT trackID FROM Track WHERE name = 'Radioactivity') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 10, (SELECT trackID FROM Track WHERE name = 'Trans Europe Express') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 11, (SELECT trackID FROM Track WHERE name = 'Abzug') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 12, (SELECT trackID FROM Track WHERE name = 'Metal On Metal') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 13, (SELECT trackID FROM Track WHERE name = 'The Robots') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 14, (SELECT trackID FROM Track WHERE name = 'Pocket Calculator') ),
+    ((SELECT id FROM Concert WHERE name = 'Stockholm, Sweden 1991'), 15, (SELECT trackID FROM Track WHERE name = 'Music-Non Stop') ); 
+
