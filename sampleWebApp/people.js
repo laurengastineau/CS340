@@ -28,7 +28,7 @@ module.exports = function(){
 
     //get tracklists data
     function getTracklists(res, mysql, context, complete){
-        mysql.pool.query("SELECT DISTINCT concertID FROM Tracklist", function(error, results, fields){
+        mysql.pool.query("SELECT DISTINCT concertID, trackNum, track FROM Tracklist", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -335,7 +335,6 @@ module.exports = function(){
         var mysql = req.app.get('mysql');
         console.log(req.body)
         console.log(req.params.id)
-        
         var sql = "UPDATE Concert SET name=?, date=?, location=?, lineup=?, tour=?, tracklist=?, media=?, notes=? WHERE id=?";
         var inserts = [req.body.name, req.body.date, req.body.location, req.body.lineup, req.body.tour, req.body.tracklist, req.body.media, req.body.notes, req.params.id];
         console.log("inserts = ");
